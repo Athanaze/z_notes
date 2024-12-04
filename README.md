@@ -17,6 +17,6 @@ Protips for ml &amp; algorithms
 
 ![2024-12-04-130446_761x326_scrot](https://github.com/user-attachments/assets/5dee67b4-7003-416c-a592-6b25d57985cd)
 
-# Combinatory Categorical Grammars (CCG)
+# CCG derivation
 
 ![2024-12-04-133718_909x393_scrot](https://github.com/user-attachments/assets/2accccec-bdfe-4de6-ba9f-2a074879c66a)
