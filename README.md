@@ -12,3 +12,11 @@ Protips for ml &amp; algorithms
 ![2024-12-04-125613_740x139_scrot](https://github.com/user-attachments/assets/890cfa4d-bf4f-4bb4-8b96-0cbebe3df2e8)
 
 ![2024-12-04-125713_783x212_scrot](https://github.com/user-attachments/assets/33eb9917-8a6c-41ef-a90b-bd26b73e72ed)
+
+# Combinators
+
+![2024-12-04-130446_761x326_scrot](https://github.com/user-attachments/assets/5dee67b4-7003-416c-a592-6b25d57985cd)
+
+# Combinatory Categorical Grammars (CCG)
+
+![2024-12-04-133718_909x393_scrot](https://github.com/user-attachments/assets/2accccec-bdfe-4de6-ba9f-2a074879c66a)
