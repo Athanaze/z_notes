@@ -24,3 +24,7 @@ Protips for ml &amp; algorithms
 # CKY for parsing grammars
 
 ![2024-12-06-110614_1920x1080_scrot](https://github.com/user-attachments/assets/97da6ede-b682-4066-9bd6-576c38794c49)
+
+# Same picture meme
+
+![2024-12-06-113751_1920x1080_scrot](https://github.com/user-attachments/assets/6fad3777-1d6a-4df5-9d08-b80e79a4914b)
