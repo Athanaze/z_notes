@@ -20,3 +20,7 @@ Protips for ml &amp; algorithms
 # CCG derivation
 
 ![2024-12-04-133718_909x393_scrot](https://github.com/user-attachments/assets/2accccec-bdfe-4de6-ba9f-2a074879c66a)
+
+# CKY for parsing grammars
+
+![2024-12-06-110614_1920x1080_scrot](https://github.com/user-attachments/assets/97da6ede-b682-4066-9bd6-576c38794c49)
