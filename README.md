@@ -1,3 +1,8 @@
+# Recursion pro tip : if there are some overlap, just substract it !
+
+![2024-12-16-151305_1733x397_scrot](https://github.com/user-attachments/assets/8532118d-b2fc-452b-bc04-ca0a15491991)
+
+
 # z notes
 
 Protips for ml &amp; algorithms
