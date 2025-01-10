@@ -1,3 +1,7 @@
+Credits for a lot of the solutions:
+
+https://github.com/giacomocamposampiero/algolab/tree/main
+
 To solve this problem using dynamic programming, we'll follow these steps for each test case:
 
 1. **Generate All Valid Intervals:**
