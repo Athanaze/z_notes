@@ -5,7 +5,7 @@
 
 typedef std::tuple<int, int, int> T3;
 
-T3 explore(int vertex_index, std::vector<int> vec_costs, std::vector< std::vector<int> > tree){
+T3 explore(int vertex_index, std::vector<int> &vec_costs, std::vector< std::vector<int> > &tree){
   
   int picked = 0, covered = 0, not_covered = 0;
   
