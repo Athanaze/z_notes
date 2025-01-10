@@ -7,6 +7,12 @@ typedef std::tuple<int, int, int> T3;
 
 T3 explore(int vertex_index, std::vector<int> &vec_costs, std::vector< std::vector<int> > &tree){
   
+  /*
+  picked : The minimum cost if the current city is repaired.
+  covered : The minimum cost if the current city is not picked but one of it's children is covered
+  not_covered : The minimum cost if the current city is not picked, nor it's children are picked
+  */
+  
   int picked = 0, covered = 0, not_covered = 0;
   
   int min_diff_cost_covered = std::numeric_limits<int>::max();
@@ -48,8 +54,6 @@ void solve(){
     std::cin >> from_i >> to_j;
     
     tree[from_i].push_back(to_j);
-    
-   
   }
   
   std::vector<int> vec_costs(n, 0);
