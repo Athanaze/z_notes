@@ -33,6 +33,11 @@ Protips for ml &amp; algorithms
 
 ![2024-11-23-105420_711x442_scrot](https://github.com/user-attachments/assets/426cc2a1-cf4c-4ea4-9e7e-69280000772d)
 
+# Locally normalized language model
+
+![2025-01-14-093453_1038x165_scrot](https://github.com/user-attachments/assets/1b723650-7ef6-4be9-b8e6-1c83e110e86f)
+
+
 # Lambda calculus
 
 ![2024-12-04-125422_578x41_scrot](https://github.com/user-attachments/assets/42e8b661-0a66-459f-b67e-dca0c02ec2e8)
