@@ -1,3 +1,42 @@
+# Graph exploration
+
+## Iterating over all the out edges
+
+```cpp
+#include <boost/graph/adjacency_list.hpp>
+#include <iostream>
+
+typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,
+  boost::no_property, boost::property<boost::edge_weight_t, int> > weighted_graph;
+
+typedef boost::graph_traits<weighted_graph>::vertex_descriptor vertex_desc;
+typedef boost::graph_traits<weighted_graph>::edge_descriptor edge_desc;
+typedef boost::property_map<weighted_graph, boost::edge_weight_t>::type weight_map;
+
+int main() {
+    weighted_graph G(4);
+    weight_map weights = boost::get(boost::edge_weight, G);
+
+    edge_desc e;
+    e = boost::add_edge(0, 1, G).first; weights[e] = 0;
+    e = boost::add_edge(1, 2, G).first; weights[e] = 2;
+    e = boost::add_edge(2, 3, G).first; weights[e] = 1;
+    e = boost::add_edge(3, 0, G).first; weights[e] = 3;
+    e = boost::add_edge(0, 2, G).first; weights[e] = 3;
+
+    // Print all vertices connected to vertex 0 (undirected graph)
+    vertex_desc v = 0;
+    std::cout << "Vertices connected to vertex " << v << " (undirected graph):\n";
+    auto out_edges = boost::out_edges(v, G);
+    for (auto it = out_edges.first; it != out_edges.second; ++it) {
+        vertex_desc target = boost::target(*it, G);
+        std::cout << target << "\n";
+    }
+
+    return 0;
+}
+```
+
 # Delaunay triangulation
 
 ```cpp
