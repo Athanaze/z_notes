@@ -1,4 +1,6 @@
 
+![2025-01-23-164439_1413x805_scrot](https://github.com/user-attachments/assets/9772208d-2aea-4607-b171-addb41e5a4ec)
+
 # AML
 
 # Conditional entropy
