@@ -1,4 +1,12 @@
 
+# CGAL
+
+```
+K::Point_2 a;
+K::Point_2 b;
+
+CGAL::right_turn(a, b, c) // true if c makes a right turn relative to the directed line segment from a to b 
+```
 ![2025-01-23-164439_1413x805_scrot](https://github.com/user-attachments/assets/9772208d-2aea-4607-b171-addb41e5a4ec)
 
 # AML
