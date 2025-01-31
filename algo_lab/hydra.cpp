@@ -1,187 +1,132 @@
-// STL includes
-#include <iostream>
-#include <vector>
+///1
 
-// BGL includes
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/dijkstra_shortest_paths.hpp>
 
-typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS,
-  boost::no_property, boost::property<boost::edge_weight_t, int> >      weighted_graph;
-typedef boost::property_map<weighted_graph, boost::edge_weight_t>::type weight_map;
-typedef boost::graph_traits<weighted_graph>::edge_descriptor            edge_desc;
-typedef boost::graph_traits<weighted_graph>::vertex_descriptor          vertex_desc;
 
-int dijkstra_dist(const weighted_graph &G, int s, int t) {
-  int n = boost::num_vertices(G);
-  std::vector<int> dist_map(n);
+#include <bits/stdc++.h>
+using namespace std;
 
-  boost::dijkstra_shortest_paths(G, s,
-    boost::distance_map(boost::make_iterator_property_map(
-      dist_map.begin(), boost::get(boost::vertex_index, G))));
-
-  return dist_map[t];
-}
-
-int dijkstra_path(const weighted_graph &G, int s, int t, std::vector<vertex_desc> &path) {
-  int n = boost::num_vertices(G);
-  std::vector<int>         dist_map(n);
-  std::vector<vertex_desc> pred_map(n);
-
-  boost::dijkstra_shortest_paths(G, s,
-    boost::distance_map(boost::make_iterator_property_map(
-      dist_map.begin(), boost::get(boost::vertex_index, G)))
-    .predecessor_map(boost::make_iterator_property_map(
-      pred_map.begin(), boost::get(boost::vertex_index, G))));
-
-  int cur = t;
-  path.clear(); path.push_back(cur);
-  while (s != cur) {
-    cur = pred_map[cur];
-    path.push_back(cur);
-  }
-  std::reverse(path.begin(), path.end());
-  return dist_map[t];
-}
-
-void solve_test(){
-  int n, m;
-  
-  std::cin >> n >> m;
-  
-  // n : number of hydra's head
-  // m : number of eradication patterns
-  
-  int k,d;
-  
-  std::cin >> k >> d;
-  // k : length of eradiction pattern
-  // d: max number of times a head may appear in the list of eradication patterns
-  // For each head, list of 
-  
-  std::vector<std::vector<std::vector<int>>> heads_pattern(n, std::vector<std::vector<int>>(d, std::vector<int>(k, -1)));
-
-  // The following m lines define erdication patterns
-  std::vector<int> pattern_index(n, 0);
-  
-  for(int m_counter = 0; m_counter < m; m_counter++){
-    
-    std::vector<int> pattern_vec(k, 0);
-    for(int k_counter = 0; k_counter < k; k_counter++){
-      std::cin >> pattern_vec[k_counter];
-    }
-    
-    // last element
-    auto head_number = pattern_vec[k-1];
-    
-    heads_pattern[head_number][pattern_index[head_number]] = pattern_vec;
-    
-    pattern_index[head_number]++;
-    
-  }
-  
-  weighted_graph G((n*d) + 2);
-  weight_map weights = boost::get(boost::edge_weight, G);
-
-  edge_desc e;
-  
-  // Add all the initial edges, from node 0 to all the possible patterns to eradicate head 0
-  
-  int super_source = n*d;
-  int super_sink = (n*d)+1;
-  
-  for(int s_d = 0; s_d < d; s_d++){
-    e = boost::add_edge(super_source, s_d, G).first; weights[e]=k;
-  }
-  
-  for(int s_d = 0; s_d < d; s_d++){
-    auto current_pattern_index = (n-1)*d + s_d;
-    e = boost::add_edge(current_pattern_index, super_sink, G).first; weights[e]=0;
-  }
-  
-  //std::cout << "After filling3" << std::endl;
-  
-  for(int nh =1; nh < n; nh++){
-    
-    for(int s_d = 0; s_d < d; s_d++){
-        // Connect each element of the previous layer to that pattern
-        auto current_pattern_index = (nh)*d + s_d;
-        // Loop over each pattern of the previous layer
-        
-        for(int prev_d = 0; prev_d < d; prev_d++){
-          auto prev_pattern = heads_pattern[nh-1][prev_d];
-          //std::cout << "After prev_pattern, sd:"<<s_d << std::endl;
-          
-          if(prev_pattern[0] != -1 && heads_pattern[nh][s_d][0] != -1){
-            // Each layer has d vertex
-            auto vertex_index = (nh-1)*d + prev_d;
-            
-            // Compute weight
-            int sliding_amount = 0;
-            
-            bool valid_overlap = true;
-            bool repeat = true;
-            while(repeat){
-              for(int sk =0; sk < k; sk++){
-                if(sk+sliding_amount < k){
-                  if(prev_pattern[sk+sliding_amount] != heads_pattern[nh][s_d][sk]){
-                    valid_overlap = false;
-                  }
-                }
-              }
-              if(!valid_overlap){
-                valid_overlap = true;
-                sliding_amount++;
-              }else{
-                repeat = false;
-              }
-              
+/*
+  getOverlap(p, q, k, tillHead):
+    Returns the largest t in [0..k] such that
+    the suffix of p of length t equals the prefix of q of length t,
+    and the new cuts in q (beyond the overlap) do not involve eradicated heads (heads < tillHead).
+    Returns -1 if no valid overlap is possible.
+*/
+int getOverlap(const vector<int> &p, const vector<int> &q, int k, int tillHead) {
+    for(int t = k; t >= 0; t--){
+        bool match = true;
+        // Check overlapping positions (no need to check for eradicated heads here)
+        for(int s = 0; s < t; s++){
+            if(p[k - t + s] != q[s]){
+                match = false;
+                break;
             }
-
-            
-            bool ok_to_add = true;
-            // Before adding, check that the current pattern does not need to cut again a head that has been eradicated
-            
-            for(int sk = sliding_amount; sk < k; sk++){
-              if(heads_pattern[nh][s_d][sk] < nh-1){
-                ok_to_add = false;
-              }
-            }
-            if(sliding_amount == k){
-              for(int sk =0; sk < k; sk++){
-                if(heads_pattern[nh][s_d][sk] < nh){
-                  ok_to_add = false;
-                }
-              }
-            }
-            if(ok_to_add){
-               e = boost::add_edge(vertex_index, current_pattern_index, G).first; weights[e]=sliding_amount;
-            }
-           
-          }
         }
+        if(!match) continue;
+        // Check new cuts in q (positions beyond the overlap)
+        for(int s = t; s < k; s++){
+            int h_q = q[s];
+            if(h_q < tillHead){
+                match = false;
+                break;
+            }
+        }
+        if(match) return t;
     }
-  }
-  
-  std::vector<vertex_desc> path;
-  int r = dijkstra_dist(G, super_source, super_sink);
-  if(r == 2147483647 ){
-    std::cout << "Impossible!"  << "\n";
-  }else{
-    
-    std::cout << r << "\n";
-  }
+    return -1; // No valid overlap
 }
 
-int main()
-{
-  int n_tests;
-  
-  std::cin >> n_tests;
-  for(int ti = 0; ti < n_tests; ti++){
-    solve_test();
-  }
-  
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-  return 0;
+    int T; cin >> T;
+    while(T--){
+        int n,m; cin >> n >> m;
+        int k,d; cin >> k >> d; // d is not directly needed in this solution
+
+        // P[h] = all patterns of length k whose last head is h.
+        vector<vector<vector<int>>> P(n);
+
+        for(int i=0; i<m; i++){
+            vector<int> pat(k);
+            for(int &x : pat) cin >> x;
+            int last = pat[k-1];
+            // Add pat to P[last].
+            if(last >= 0 && last < n){
+                P[last].push_back(pat);
+            }
+        }
+
+        // If some head h has no pattern, we cannot eradicate it => Impossible.
+        bool impossible = false;
+        for(int h=0; h<n; h++){
+            if(P[h].empty()){
+                impossible = true;
+                break;
+            }
+        }
+        if(impossible){
+            cout << "Impossible!\n";
+            continue;
+        }
+
+        // Precompute overlaps considering only new cuts (positions beyond the overlap) must not involve eradicated heads.
+        vector<vector<vector<int>>> overlapCost(n-1);
+        for(int i=0; i+1<n; i++){
+            int szA = (int)P[i].size();
+            int szB = (int)P[i+1].size();
+            overlapCost[i].assign(szA, vector<int>(szB, -1)); // Initialize with -1 (invalid)
+            for(int u = 0; u < szA; u++){
+                for(int v = 0; v < szB; v++){
+                    // Heads 0 to i have been eradicated when moving to head i+1
+                    overlapCost[i][u][v] = getOverlap(P[i][u], P[i+1][v], k, i+1);
+                }
+            }
+        }
+
+        // dp[i][u] = minimal number of total cuts to eradicate heads [0..i],
+        //            if we use the u-th pattern of P[i] to kill head i.
+        vector<vector<int>> dp(n);
+        for(int i=0; i<n; i++){
+            dp[i].resize(P[i].size(), INT_MAX);
+        }
+
+        // Base case for head 0: using any pattern p in P[0]
+        for(int u=0; u<(int)P[0].size(); u++){
+            bool valid = true;
+            // Ensure the pattern does not require cuts on eradicated heads (no heads eradicated yet)
+            for(int s = 0; s < k; s++){
+                int h = P[0][u][s];
+                if(h < 0 || h < 0){ // All heads are >= 0 initially
+                    valid = false;
+                    break;
+                }
+            }
+            if(valid) dp[0][u] = k;
+        }
+
+        // Fill dp for i=1..n-1 using chaining with valid overlaps
+        for(int i=1; i<n; i++){
+            int szA = (int)P[i-1].size();
+            int szB = (int)P[i].size();
+            for(int v=0; v<szB; v++){
+                int best = INT_MAX;
+                for(int u=0; u<szA; u++){
+                    if(dp[i-1][u] == INT_MAX) continue;
+                    int ov = overlapCost[i-1][u][v];
+                    if(ov == -1) continue; // Invalid overlap (new cuts involve eradicated heads)
+                    // We add (k - ov) new cuts
+                    best = min(best, dp[i-1][u] + (k - ov));
+                }
+                dp[i][v] = best;
+            }
+        }
+
+        // Final answer is min of dp[n-1][u]
+        int ans = *min_element(dp[n-1].begin(), dp[n-1].end());
+        if(ans == INT_MAX) cout << "Impossible!\n";
+        else cout << ans << "\n";
+    }
+    return 0;
 }
