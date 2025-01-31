@@ -1,3 +1,29 @@
+# hydra
+
+**Explanation of Changes:**
+
+- **`getOverlap` Function:**
+
+  - We no longer check for eradicated heads in overlapping positions.
+  - We only check that the new cuts (positions beyond the overlap in `q`) do not involve eradicated heads.
+  - This allows us to use previous cuts (even on eradicated heads) to form the required patterns.
+
+- **Overlap Computation:**
+
+  - When computing `overlapCost`, we use the updated `getOverlap` function.
+  - We ensure that the new cuts added when moving from one pattern to the next do not require cutting eradicated heads.
+
+- **Base Case Initialization:**
+
+  - For head 0, all patterns are valid since no heads have been eradicated yet.
+  - We can initialize `dp[0][u] = k` for all patterns of head 0.
+
+- **DP Transition:**
+
+  - In the DP update, we only consider overlaps where `ov != -1`, meaning the overlap is valid and new cuts do not involve eradicated heads.
+  - We calculate the total cuts by adding the number of new cuts `(k - ov)` to the previous total.
+
+
 # Graph exploration
 
 ## Iterating over all the out edges
