@@ -1,3 +1,4 @@
+///3
 #include <vector>
 #include <iostream>
 #include <boost/graph/adjacency_list.hpp>
@@ -47,43 +48,34 @@ void solve() {
     // Build the original graph for Dijkstra
     Graph g(n);
     auto weight_map = boost::get(boost::edge_weight, g);
+    
+    Graph reversed_g(n);
+    auto reversed_weight_map = boost::get(boost::edge_weight, reversed_g);
+    
     for (const auto &e : edges) {
         int u = std::get<0>(e);
         int v = std::get<1>(e);
         long d = std::get<3>(e);
         auto edge = boost::add_edge(u, v, g).first;
         weight_map[edge] = d;
+        
+        auto edge_reversed_g = boost::add_edge(u, v, reversed_g).first;
+        reversed_weight_map[edge_reversed_g] = d;
     }
-
+    const long INITIAL_EDGE_VALUE = std::numeric_limits<long>::max();
     // Compute Harry's cost (shortest path from s to p)
-    std::vector<long> forward_dist(n, std::numeric_limits<long>::max());
+    std::vector<long> forward_dist(n, INITIAL_EDGE_VALUE);
     forward_dist[s] = 0;
     boost::dijkstra_shortest_paths(g, s, boost::distance_map(boost::make_iterator_property_map(
         forward_dist.begin(), boost::get(boost::vertex_index, g))));
 
     long harry_cost = forward_dist[p];
-    if (harry_cost == std::numeric_limits<long>::max()) {
+    if (harry_cost == INITIAL_EDGE_VALUE) {
         std::cerr << "No path found!" << std::endl;
         return;
     }
-
-    // Compute reverse distances (distance from each node to p)
-    // Build reversed graph
-    Graph reversed_g(n);
-    auto reversed_weight_map = boost::get(boost::edge_weight, reversed_g);
-    for (const auto &e : edges) {
-        
-        int u = std::get<0>(e);
-        int v = std::get<1>(e);
-        
-        //int u = std::get<1>(e); // reverse the edge direction
-        //int v = std::get<0>(e);
-        long d = std::get<3>(e);
-        auto edge = boost::add_edge(u, v, reversed_g).first;
-        reversed_weight_map[edge] = d;
-    }
-
-    std::vector<long> reverse_dist(n, std::numeric_limits<long>::max());
+    
+    std::vector<long> reverse_dist(n, INITIAL_EDGE_VALUE);
     reverse_dist[p] = 0;
     boost::dijkstra_shortest_paths(reversed_g, p, boost::distance_map(boost::make_iterator_property_map(
         reverse_dist.begin(), boost::get(boost::vertex_index, reversed_g))));
@@ -98,8 +90,8 @@ void solve() {
         long c = std::get<2>(e);
         long d = std::get<3>(e);
 
-        if (forward_dist[u] != std::numeric_limits<long>::max() &&
-            reverse_dist[v] != std::numeric_limits<long>::max() &&
+        if (forward_dist[u] != INITIAL_EDGE_VALUE &&
+            reverse_dist[v] != INITIAL_EDGE_VALUE &&
             (forward_dist[u] + d + reverse_dist[v] == harry_cost)) {
             adder_sub.add_edge(u, v, c);
         }
@@ -117,3 +109,4 @@ int main() {
     while (t--) solve();
     return 0;
 }
+
