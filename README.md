@@ -6,7 +6,7 @@ Every topic is characterized by a distribution of words. The "Politics" topic is
 
 LDA is a generative model : it assumes a hypothetical process for how the documents you see could have been generated. 
 
-So we have to image we want to write a new document
+So we have to imagine we want to write a new document
 
 We pick the proportions of topics : the mix is influenced by the Dirichlet distribution
 For each word in the document we first pick  which topic it will cover. The probability of each topic is based on the mix we choose at step 1.
