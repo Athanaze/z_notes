@@ -1,3 +1,13 @@
+# Philosophy notes
+
+## Deleuze’s The Logic of Sense (1969)
+
+- Denotation : How a proposition points to a specific **state of affairs** : matching words to things using "this"
+- Manifestation : The speaker's role in a proposition
+- Signification : The logical and conceptual structure of a proposition : how propositions relate to concepts and **imply other concepts**
+- Sense : what a proposition expresses. Sense does not exists independently. Sense is what makes language meaningful
+
+
 LDA (Latent Dirichlet Allocation)
 
 Example of documents  : every doc is a mix of diff topics
