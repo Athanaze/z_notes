@@ -1,3 +1,7 @@
+# CIL
+
+Example of function that is continuous but not uniformly continuous : 1/x
+
 # Philosophy notes
 
 ## Deleuze’s The Logic of Sense (1969)
