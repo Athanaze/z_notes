@@ -1,3 +1,9 @@
+# Receiver Operating Characteristic (ROC) curve : True Positive rate vs False Positive rate
+
+<img width="476" height="476" alt="2025-08-05-202131_476x476_scrot" src="https://github.com/user-attachments/assets/44fbcdd1-d1a9-4c11-a671-5420dc557389" />
+
+Area Under the Curve (AUC) is defined as the area under the ROC curve
+
 # Generative models
 
 Estimate the joint P(Y,X) then use P(Y=1 | X=x) and Bayes rule to predict class 0 or 1
