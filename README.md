@@ -20,6 +20,27 @@ Used to improve the accuracy of bootstrap estimates, particualry for CI or hypot
 - Compute the stat on these samples
 - Use the second-evel statistics to estimate the variability or distribution of the first level bootstrap statistic
 
+
+# Boostrap Confidence Intervals
+
+## Percentile bootstrap CI
+
+Generate many bootstrap samples by resampling with replacement, compute the statistic for each sample. Sort these statistics and take percentiles to form the CI
+
+Assumes the bootstrap distribution approximates the true sampling distribution well. Works best when the statistic’s distribution is symmetric and not heavily biased.
+
+## Basic (or Normal) Bootstrap CI
+
+Compute the bootstrap statistics as in the percentile. Then we do the difference between the bootstrap statistic and the original sample statistic, and we use that to estimate the variability of the sampling distribution.
+
+Assumes the bootstrap differences approximate the true sampling error distribution. Better than percentile for biased statistics.
+
+## Studentized Boostrap CI
+
+ Accounts for both bias and variance by standardizing the bootstrap statistics. For each bootstrap sample, compute the statistic and its estimated standard error (e.g., via a second level of bootstrapping or another method)
+
+Assumes the t-statistics follow a distribution that approximates the true standardized sampling distribution. Requires reliable standard error estimates.
+
 TODO : series 7
 
 ##################################################
