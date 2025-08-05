@@ -1,3 +1,11 @@
+# T-distribution
+
+Used to estimate population parameters when the sample size is small and the std dev of the population is unknown.
+The shape of the distribution depends on the number of d.f. -> typically n -1 when the sample is of size n
+
+For V (number of d.f.) > 30 the t-distribution is very close to the normal distribution
+
+
 TODO : series 7
 
 ##################################################
