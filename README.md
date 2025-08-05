@@ -5,6 +5,20 @@ The shape of the distribution depends on the number of d.f. -> typically n -1 wh
 
 For V (number of d.f.) > 30 the t-distribution is very close to the normal distribution
 
+# Double bootstrapping
+
+Used to improve the accuracy of bootstrap estimates, particualry for CI or hypothesis testing. We refine the bootstrap method by applying it twice
+
+## First bootstrap
+
+- Generate B samples by resampling with replacement from the original dataset
+- For each boostrat sample, compute the statistic (e.g. mean)
+
+## Second bootstrap
+
+- For each of the B boostrap sample, perform another bootstrap by resampling (nested sampling)
+- Compute the stat on these samples
+- Use the second-evel statistics to estimate the variability or distribution of the first level bootstrap statistic
 
 TODO : series 7
 
