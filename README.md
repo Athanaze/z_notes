@@ -1,3 +1,15 @@
+# Generative models
+
+Estimate the joint P(Y,X) then use P(Y=1 | X=x) and Bayes rule to predict class 0 or 1
+
+# Discriminative models
+
+Estimate P(Y=1 | X=x) and Bayes to predict class 0 or 12
+
+# We can also estimate a discriminant function that predicts the class 0 or 1 from x (does not need distribution models)
+
+# Linear smoother protip : one can get an explicit form for the leave-one-out CV error
+
 # T-distribution
 
 Used to estimate population parameters when the sample size is small and the std dev of the population is unknown.
