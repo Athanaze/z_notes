@@ -1,3 +1,10 @@
+# Cubic splines
+
+in addition to continuity we impose some derivatives to be continuous
+
+<img width="682" height="567" alt="2025-08-06-172134_682x567_scrot" src="https://github.com/user-attachments/assets/223b7907-7d8b-4e74-9e46-c5b768877092" />
+
+
 # MSE : mean square error
 
 # MISE : Mean Integrated Squared Error
