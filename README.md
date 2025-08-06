@@ -1,3 +1,12 @@
+# MSE : mean square error
+
+# MISE : Mean Integrated Squared Error
+
+Used primarly when estimating a continuous function
+
+<img width="340" height="79" alt="2025-08-06-170608_340x79_scrot" src="https://github.com/user-attachments/assets/ca522310-805a-43c0-8494-fa28345bf44f" />
+
+
 # Degrees of freedom
 
 df of an estimate = effective number of params
