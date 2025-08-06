@@ -1,10 +1,6 @@
-
-<img width="1111" height="581" alt="2025-08-06-175213_1111x581_scrot" src="https://github.com/user-attachments/assets/29d15d14-ef89-4dbe-bd41-9c2b99ebcbb8" />
-
-
-
 <img width="1029" height="602" alt="2025-08-06-174933_1029x602_scrot" src="https://github.com/user-attachments/assets/cafea24c-1f9d-4745-a795-276008a1df7e" />
 
+<img width="1111" height="581" alt="2025-08-06-175213_1111x581_scrot" src="https://github.com/user-attachments/assets/29d15d14-ef89-4dbe-bd41-9c2b99ebcbb8" />
 
 <img width="1081" height="541" alt="2025-08-06-174828_1081x541_scrot" src="https://github.com/user-attachments/assets/e4c7fdf1-5624-4873-a4fc-a42449fb8e10" />
 
