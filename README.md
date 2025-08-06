@@ -1,3 +1,31 @@
+# Week 11
+
+## Logisitic regression:
+
+Logit function
+
+<img width="1438" height="876" alt="2025-08-06-222121_1438x876_scrot" src="https://github.com/user-attachments/assets/6ab795f3-380c-4c27-b4fc-4db2e007d081" />
+
+
+# Week 10
+
+## LDA
+
+# Week 9
+
+## TODO : pivotal vs non-pivotal (week 9)
+
+## TODO : estimating DF by bootstrapping
+
+## TODO : hypothesis testing using bootstrap
+
+## TODO : bayes classifier
+
+## TODO : empirical risk minimization
+
+
+
+
 # Studentization
 
 The process of transforming a statistic by diving it by an estimate of it's standard error -> creating a studentized statistic
