@@ -1,3 +1,9 @@
+# Supports in Kernel functions
+
+The support of G(x) is the subset of its domain where G(x) != 0
+
+
+
 
 <img width="1038" height="1235" alt="2025-08-06-140332_1038x1235_scrot" src="https://github.com/user-attachments/assets/d85c0f9d-3c07-42da-8827-1180f1c608b2" />
 
