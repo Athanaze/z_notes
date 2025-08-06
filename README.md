@@ -4,6 +4,13 @@ in addition to continuity we impose some derivatives to be continuous
 
 <img width="682" height="567" alt="2025-08-06-172134_682x567_scrot" src="https://github.com/user-attachments/assets/223b7907-7d8b-4e74-9e46-c5b768877092" />
 
+In R, *splines* can be used to fit cubic spline models.
+
+cubic splines are also called regression cubic splines.
+
+the number of knots can be fixed if we want a specific number of df or we can use cross-validation.
+
+To fix the locations, we can use more knots in more wiggly regions or we can spread them out equally over the range of $x_i$
 
 # MSE : mean square error
 
