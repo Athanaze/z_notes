@@ -1,3 +1,7 @@
+
+<img width="1038" height="1235" alt="2025-08-06-140332_1038x1235_scrot" src="https://github.com/user-attachments/assets/d85c0f9d-3c07-42da-8827-1180f1c608b2" />
+
+
 # Gradient tree boosting for squared loss regression
 
 - The loss function is just the squared distance between ŷ and y, and the error is just the average square distance.
