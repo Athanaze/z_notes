@@ -1,4 +1,8 @@
-One standard error rule
+# Studentization
+
+The process of transforming a statistic by diving it by an estimate of it's standard error -> creating a studentized statistic
+
+# One standard error rule
 
 choose the simplest model whose error is no more than one standard error above the error of the best model.
 
