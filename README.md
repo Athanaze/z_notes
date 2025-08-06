@@ -1,3 +1,25 @@
+# Gradient tree boosting for squared loss regression
+
+- The loss function is just the squared distance between ŷ and y, and the error is just the average square distance.
+- The negated gradient values is proportional to the residual of OLS (Ordinary Least Square)
+
+- At each iteration, GBM fits a small tree (small to avoid fitting models that are too complex) to the current residuals, and then we add this tree to the current model with a small weight gamma (use shrinkage to learn slowly=reduce gamma a bit at each iteration)
+- We improve the model step by step, fitting the residuals.
+- The size of trees M controls the degree of interactions -> use small tree in general because estimage high dim interactions hard -> curse of dimensionality
+  
+<img width="1114" height="619" alt="2025-08-06-105738_1114x619_scrot" src="https://github.com/user-attachments/assets/87ea700d-d55c-4706-9116-2db4dfa21d57" />
+
+# Subsampling
+
+At each iteration:
+
+- use only a subset of the data to fit the gradient
+- and / or use a subset of the features
+
+# Adaboost : special case of GBM (Gradient Boosting Machine) with exponential loss function
+
+- Exponential loss is more sensitive to outliers than the logistic loss
+
 # Receiver Operating Characteristic (ROC) curve : True Positive rate vs False Positive rate
 
 <img width="476" height="476" alt="2025-08-05-202131_476x476_scrot" src="https://github.com/user-attachments/assets/44fbcdd1-d1a9-4c11-a671-5420dc557389" />
