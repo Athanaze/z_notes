@@ -1,3 +1,10 @@
+# T-statistic
+
+Measures how far (e.g. the mean) is from a hypothesized value in terms of standard error units.
+
+<img width="784" height="177" alt="2025-08-07-104022_784x177_scrot" src="https://github.com/user-attachments/assets/eba7b708-0f1d-48c0-ac58-64b6ca827b4e" />
+
+
 # Week 11
 
 ## Logisitic regression:
@@ -13,7 +20,17 @@ Logit function
 
 # Week 9
 
-## TODO : pivotal vs non-pivotal (week 9)
+# pivotal vs non-pivotal
+
+Pivotal quantity : it's a function of the sample data whose distribution is known and does not depend on unknown parameters. 
+
+Pivotal quantites are used to :
+
+- Derive Confidence Intervals
+- Perform hypothesis testing
+
+<img width="753" height="652" alt="2025-08-07-102451_753x652_scrot" src="https://github.com/user-attachments/assets/b3dd71b7-390d-4108-ac6e-b93846db4590" />
+
 
 ## TODO : estimating DF by bootstrapping
 
