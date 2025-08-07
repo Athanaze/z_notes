@@ -36,6 +36,10 @@ Pivotal quantites are used to :
 
 ## TODO : hypothesis testing using bootstrap
 
+Repeatedly sample from the observed data to estimate the sampling distribution of a test statistic, which is then used to evaluate the null hypothesis.
+
+We use bootstrap for Hypothesis Testing when the data violates parametric assumptions
+
 ## TODO : bayes classifier
 
 ## TODO : empirical risk minimization
