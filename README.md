@@ -1,3 +1,9 @@
+# Leave-one-out CV
+
+High variance typically, because the n training set are so similar to each other
+
+-> leave-d-out CV (d>1) has higher bians than leave-one-out because we use training samples of sizes n-d instead of n, this causes some bias
+
 # T-statistic
 
 Measures how far (e.g. the mean) is from a hypothesized value in terms of standard error units.
