@@ -1,3 +1,12 @@
+# Bandwith
+
+Small Bandwith → lots of wiggles (low bias, high variance)
+
+Large Bandwith → oversmoothed curve (high bias, low variance)
+
+"SJ" : Sheater-Jones : optimal bandwith estimator
+
+
 # TODO : hard to replicate this, maybe add parts to cheatsheet ?
 
 ## Week 6
