@@ -1,3 +1,221 @@
+# TODO : hard to replicate this, maybe add parts to cheatsheet ?
+
+## Week 6
+
+```R
+################################################################
+# Cross validation and Smoothing Splines - Hyperparameter tuning
+###############################################################
+
+m_fct <- function (x) {
+  ifelse(x < 0.5, exp(cos(6 * pi * x)),
+         exp(-1) * ((x / 0.5) ^ 3)) / 3
+}
+
+set.seed(200)
+
+# covariate
+xvals <- seq(0, 1, by = 0.01)
+
+# additive model 
+yvals <- m_fct(xvals) + 0.1 * rnorm(length(xvals))
+
+# data plot with true function m(x)
+plot(xvals, yvals, type = 'p', xlab = 'x', ylab = 'f(x)')
+
+lines(xvals, m_fct(xvals), type = 'l', xlab = 'x', ylab = 'f(x)', lty = 'dashed')
+
+title('Observed Data + True Function')
+
+
+# only data
+
+plot(xvals, yvals, type = 'p', xlab = 'x', ylab = 'f(x)')
+title('Observed Data Only')
+
+# fit smoothing spline
+
+spline_fit <- smooth.spline(xvals, yvals)
+
+plot(xvals, yvals)
+
+lines(xvals, predict(spline_fit, xvals)$y, type = 'l', xlab = 'x', ylab = 'f(x)', lwd = 2)
+
+lines(xvals, m_fct(xvals), type = 'l', lty = 'dashed', col = "red", lwd = 2)
+title('Smoothing Spline and True Function')
+legend("top", c("Smoothing Spline", "True Function"), lty = c('solid', 'dashed'), lwd = c(2, 2), col = c("black", "red"))
+
+# The degree of smoothness is controlled by an argument called spar \in (0,1]
+# lambda is a monotone function of spar 
+# help(smooth.spline) -> see spar parameter
+print(paste("R's optimized spar value: ", spline_fit$spar))
+
+
+##########################################
+# Cross validation manually step-by-step:
+##########################################
+
+# do k-fold cross-validation with k = 10
+
+# create a grid between 0 and 1
+spar_vals <- seq(0, 1, 0.05)
+spar_vals
+
+k <- 10 # do 10-fold cross-validation
+n <- length(xvals) # number of data points
+fold_size <- floor(n / k) # size of each CV fold
+
+# randomized indices to later make CV folds
+sample_ids <- sample(n)
+
+# initialize empty vector for loss values 
+fold_losses <- rep(0, k)
+cv_errors <- rep(0, length(spar_vals))
+
+for (i in 1:length(spar_vals)) {
+  # iterate over CV folds
+  for (j in 1:k) {
+    # compute this CV fold
+    if (j < k) {
+      hold_out_ids <- sample_ids[ (1 + (j - 1) * fold_size):(j * fold_size) ]
+    } else {
+      hold_out_ids <- sample_ids[(1 + (j - 1) * fold_size):n]
+    }
+    
+    # train smoothing spline on all data EXCEPT this CV fold
+    spline_fit_cv <- smooth.spline(xvals[-hold_out_ids], yvals[-hold_out_ids], spar = spar_vals[i])
+    
+    # evaluate error on held-out data
+    ypred <- predict(spline_fit_cv, xvals[hold_out_ids])$y
+    yobs <- yvals[hold_out_ids]
+    squared_loss_fold <- mean((yobs - ypred) ^ 2)
+    
+    # record loss on this fold
+    fold_losses[j] <- squared_loss_fold
+  }
+  
+  cv_error <- mean(fold_losses)
+  
+  cv_errors[i] <- cv_error
+}
+
+
+
+plot(spar_vals, cv_errors, xlab = 'spar (our hyperparameter)', ylab = '10-fold CV Error', type = 'l')
+best_spar_idx <- which.min(cv_errors)
+points(spar_vals[best_spar_idx], cv_errors[best_spar_idx], pch = 'x', cex = 1.5)
+title("CV Error vs spar for Smoothing Spline")
+legend('top', c('Minimum CV Error'), pch = c('x'), cex = 1.5)
+print(paste("our optimized spar value: ", spar_vals[best_spar_idx]))
+
+# refit smoothing spline with best spar value
+our_spline <- smooth.spline(xvals, yvals, spar = spar_vals[best_spar_idx])
+ypred <- predict(our_spline, xvals)$y
+
+plot(xvals, ypred, type = 'l', xlab = 'x', ylab = 'y', lwd = 2)
+
+lines(xvals, m_fct(xvals), type = 'l', lty = 'dashed',col = "red", lwd = 2)
+
+title('Our CV-Optimized Smoothing Spline and True Function')
+
+legend("top", c("CV-Optimized Spline", "True Function"), lty = c('solid', 'dashed'), lwd = c(2, 2), col = c("black", "red"))
+```
+
+
+## Week 4
+```R
+## help(faithful)# standard  R  dataset
+## ^^^^
+str(faithful)
+oldfaith <- faithful $ eruptions # eruption lengths (in minutes)
+
+## histogram first:
+hist(oldfaith)              # "counts"
+hi.of <- hist(oldfaith, probab = TRUE)# -> area = 1
+## -> now can compare with density:
+lines(density(oldfaith), col = 2, lwd = 2)# with default bandwidth
+rug(oldfaith)
+
+# Sanity check for histogram:
+sum(oldfaith<2.01)
+55/(272*0.5)
+
+## For demo:
+library(tcltk) # needed by
+library(TeachingDemos)
+## Take a smaller random sub sample:
+set.seed(11)
+ofaith <- sample(oldfaith, 120)
+
+run.hist.demo(ofaith)
+## first play with 'number of bins',
+## then stay with 20  and move 'Minimum':
+## --> 2 modes but also 3 or 4 modes!
+
+### static version:
+oldpar <- par(mfrow = c(2,2)) ## 2 x 2 plotting
+rng <- range(ofaith)
+(breaks <- seq(rng[1] - .5,
+               rng[2] + .5, by = 0.3))
+hist(ofaith,main = "default in R")
+hist(ofaith, breaks,      main = "hist(ofaith, breaks)")     ; rug(breaks, col=2)
+hist(ofaith, breaks + .1, main = "hist(ofaith, breaks + 0.1)")
+hist(ofaith, breaks + .2, main = "hist(ofaith, breaks + 0.2)")
+## reset plot par's:
+par(oldpar)
+
+
+## now again :
+
+plot(density(oldfaith), ylim=c(0,0.58))  # with default bandwidth
+text(5.7,0.10, "bw=0.3348")
+rug(oldfaith)
+
+lines(density(oldfaith, bw="SJ-dpi"), col = 2) # with plug-in estimate for
+text(5.12,0.5,"bw=0.165\n(SJ-dpi)",col=2) # bandwidth via estimating f , f''
+
+plot(hi.of, freq= FALSE, add = TRUE, border = "gray")
+
+bw.SJ(oldfaith, method = "dpi")  # plug-in estimate for
+# bandwidth via estimating f and f''
+## 0.1652728
+bw.nrd0(oldfaith) # default, ad-hoc rule for estimating bandwidth
+## 0.3347770
+
+## Play around: ---- Density Demo ----
+library(tcltk)
+library(sfsmisc)
+tkdensity(oldfaith)
+
+## Showing *what* the kernel density is : use *small sample:
+tkdensity(c(1:3, 5:8,10, 14))
+
+###---- Plot for *lecture* (~= skript  "dens-faithful-5h" ) : -----------
+xl.G <- c( .5, 6) ; yl.G <- c(0, 0.75)
+
+op <- mult.fig(mfrow = c(2,3), marP = c(-2,-1,-.8,0))
+for(h in .04* 1.5^(1:6)) {
+  plot(density(faithful$eruptions, bw = h),
+       xlim = xl.G, ylim = yl.G, cex = .75,
+       xlab = "", ylab = "", main= "")
+  ## xlab="faithful $ duration",ylab = "f(x)",
+  mtext(paste("h = ", round(h,3)), cex = 1.2, line = -1.8, adj = 0.95)
+  rug(faithful$eruptions, col="gray", lwd = 0.2)
+}
+
+###---- Plot for skript  "dens-faithful-5h" : -----------
+op <- mult.fig(mfrow = c(1,5), marP = c(-2,-1.6,-1,-.8))
+for(h in .04* 1.6^(1:5)) {
+  plot(density(faithful$eruptions, bw = h),
+       xlim = xl.G, ylim = yl.G, cex = .75, type = "h", col="gray",
+       xlab = "", ylab = "", main= "")
+  ## xlab="faithful $ duration",ylab = "f(x)",
+  mtext(paste("h = ", round(h,3)), cex = 1.2, line = -1.8, adj = 0.95)
+  rug(faithful$eruptions, col="gray20", lwd = 0.2)
+}
+```
+
+
 # Leave-one-out CV
 
 High variance typically, because the n training set are so similar to each other
