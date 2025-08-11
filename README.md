@@ -1,3 +1,13 @@
+
+<img width="802" height="213" alt="2025-08-11-145040_802x213_scrot" src="https://github.com/user-attachments/assets/85eaf6c3-d721-419b-96ac-630fcd0b3644" />
+
+# Logistic regression
+
+When doing MLE, beta has no explicit formula : l must be maximized numerically
+
+IRLS : Iteratively Reweighted Least Squares
+
+
 # Why naive bootstrap CI is bad
 
 ```R
