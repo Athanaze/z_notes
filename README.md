@@ -374,11 +374,6 @@ We use bootstrap for Hypothesis Testing when the data violates parametric assump
 
 The process of transforming a statistic by diving it by an estimate of it's standard error -> creating a studentized statistic
 
-# One standard error rule
-
-choose the simplest model whose error is no more than one standard error above the error of the best model.
-
-
 <img width="1029" height="602" alt="2025-08-06-174933_1029x602_scrot" src="https://github.com/user-attachments/assets/cafea24c-1f9d-4745-a795-276008a1df7e" />
 
 <img width="1111" height="581" alt="2025-08-06-175213_1111x581_scrot" src="https://github.com/user-attachments/assets/29d15d14-ef89-4dbe-bd41-9c2b99ebcbb8" />
