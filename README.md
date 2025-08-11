@@ -395,6 +395,9 @@ the number of knots can be fixed if we want a specific number of df or we can us
 
 To fix the locations, we can use more knots in more wiggly regions or we can spread them out equally over the range of $x_i$
 
+Cubic splines vs polynomial regression: recall polynomial regression fits linear models with 1, x, x2, . . . , xK. For such models to fit the data well we usually need a large value of K. **Cubic
+splines use a larger number of lower dimensional polynomials and are generally more stable.**
+
 # MSE : mean square error
 
 # MISE : Mean Integrated Squared Error
