@@ -408,7 +408,9 @@ Used primarly when estimating a continuous function
 
 df of an estimate = effective number of params
 
-linear regression with p features (intercept included) df = p
+linear regression with p features (intercept included) df = tr(H) = p where H is a projection matrix
+
+<img width="531" height="70" alt="2025-08-11-172828_531x70_scrot" src="https://github.com/user-attachments/assets/8330e480-4c09-4e6b-91ee-4cf739773e79" />
 
 
 # Supports in Kernel functions
