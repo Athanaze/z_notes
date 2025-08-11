@@ -1,3 +1,9 @@
+# Kernel trick
+
+<img width="625" height="270" alt="2025-08-11-213442_625x270_scrot" src="https://github.com/user-attachments/assets/08db799c-0e1a-4ffb-98fd-47499c756c76" />
+
+
+
 # Week 13 Trees
 
 Tree:
