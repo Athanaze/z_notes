@@ -10,6 +10,27 @@ This interval is just the 2.5% and 97.5% percentiles of the bootstrap distributi
 Problem:
 This assumes the bootstrap distribution is centered at the true parameter. But in reality, it’s centered at the observed estimate, which can be biased. As a result, the naive percentile CI can be shifted away from the true coverage.
 
+# First solution : 
+
+2. The basic bootstrap CI
+The proper method they demonstrate is:
+
+```R
+q95. <- quantile(res - th.n, pr = c(0.025, 0.975))
+ci95 <- th.n - q95.[2:1]
+```
+res - th.n is the bootstrap distribution of the error "theta hat star" - "theta hat"
+
+q95. gives the quantiles of that error distribution.
+
+th.n - q95.[2:1] inverts those errors to get bounds for the true parameter.
+
+# Better, fancier way
+
+```R
+boot.ci(boot_object, type = "bca", conf = 0.95)  # 95% CI
+```
+
 # Lambda.1se
 
 Look at the CV error curve: often there’s a wide, flat region around the minimum where many λ values perform similarly.
