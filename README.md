@@ -1,3 +1,15 @@
+# Why naive bootstrap CI is bad
+
+```R
+quantile(res, c(0.025, 0.975))
+```
+res contains bootstrap estimates of the correlation coefficient (each from resampling the original data with replacement).
+
+This interval is just the 2.5% and 97.5% percentiles of the bootstrap distribution of the estimator.
+
+Problem:
+This assumes the bootstrap distribution is centered at the true parameter. But in reality, it’s centered at the observed estimate, which can be biased. As a result, the naive percentile CI can be shifted away from the true coverage.
+
 # Lambda.1se
 
 Look at the CV error curve: often there’s a wide, flat region around the minimum where many λ values perform similarly.
