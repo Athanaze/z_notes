@@ -1,4 +1,17 @@
 
+# SVM (week 12)
+
+- makes no distributional assumption
+- Finds the separating hyperplane that minimizes the distances of the misclassified points from any hyperplane.
+
+- Maximum margin hyperplane perfectly separates the +- 1 and it maximizes the distance to the closest points
+
+- Soft margin SVM
+  - Authorize some points to be on the wrong side of the margin
+  - Penalize by a cost proportional to the distance to the margin
+  - Uses a slack variable
+
+
 <img width="682" height="454" alt="2025-08-11-150055_682x454_scrot" src="https://github.com/user-attachments/assets/334512d6-6b0b-4456-9594-0e8d799dd2f8" />
 
 
