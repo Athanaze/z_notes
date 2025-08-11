@@ -1,3 +1,16 @@
+# Week 13 Trees
+
+Tree:
+
+1. Divide feature spaces into M non-overlapping regions using **top-down greedy recursive binary splitting** (divide in two, then that in two etc...)
+2. The prediction for a new x falling into some region $A_m$ is given by **classification** (the majority class in $A_m$) or **regression** the avg of $y_i$ such that $x_i \in A_m$
+
+Pruning built a large tree $T_0$ stopping only when the number of observations in each leaf is small (e.g. 5) and then prune this large tree
+
+Cost-complexity pruning : 
+
+<img width="261" height="39" alt="2025-08-11-153039_261x39_scrot" src="https://github.com/user-attachments/assets/db60a0a8-3c0d-48e3-8973-905eda1251e9" />
+
 
 # SVM (week 12)
 
