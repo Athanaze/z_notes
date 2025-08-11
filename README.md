@@ -1,3 +1,14 @@
+# Lambda.1se
+
+Look at the CV error curve: often there’s a wide, flat region around the minimum where many λ values perform similarly.
+
+The 1-standard-error rule says:
+
+Pick the largest λ whose CV error is within 1 standard error of the minimum CV error.
+
+
+Larger λ → stronger regularization → simpler model (more coefficients shrunk to zero).
+
 # Bandwith
 
 Small Bandwith → lots of wiggles (low bias, high variance)
