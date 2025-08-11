@@ -11,6 +11,12 @@ Cost-complexity pruning :
 
 <img width="261" height="39" alt="2025-08-11-153039_261x39_scrot" src="https://github.com/user-attachments/assets/db60a0a8-3c0d-48e3-8973-905eda1251e9" />
 
+# Random forest
+
+- trained on boostrap sample : because done with replacement, about 63% of the unique data points are included in the tree's training set
+- The remaining 37% of the data is not used to train. -> out-of-bag samples
+- We can use out-of-bag samples to estimate "for free" the performance to test.
+
 
 # SVM (week 12)
 
