@@ -1,4 +1,8 @@
 
+<img width="682" height="454" alt="2025-08-11-150055_682x454_scrot" src="https://github.com/user-attachments/assets/334512d6-6b0b-4456-9594-0e8d799dd2f8" />
+
+
+
 <img width="802" height="213" alt="2025-08-11-145040_802x213_scrot" src="https://github.com/user-attachments/assets/85eaf6c3-d721-419b-96ac-630fcd0b3644" />
 
 # Logistic regression
