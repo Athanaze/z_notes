@@ -2,7 +2,10 @@
 
 "Model bias" will be large when the relation between Y and X is very non linear
 
+
 Nonparametric methods make minimal assumptions on f hat, reducing model bias
+
+<img width="719" height="334" alt="2025-08-19-142625_719x334_scrot" src="https://github.com/user-attachments/assets/79410207-06b0-4a47-9f58-57db937d4ea2" />
 
 # Kernel trick
 
