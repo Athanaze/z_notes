@@ -1,0 +1,383 @@
+%============================
+% ULTRA COMPACT CHEATSHEET TEMPLATE - R FOCUSED
+%============================
+\documentclass[landscape]{article}
+
+% ===== CONFIGURABLE CONSTANT =====
+\newcommand{\cheatsheetfontsize}{\fontsize{8pt}{8pt}\selectfont} % <--- adjust size here
+
+% ===== PACKAGES =====
+\usepackage[margin=2mm]{geometry} % ultra small margins
+\usepackage{multicol}             % multiple columns
+\usepackage{parskip}              % space between paragraphs
+\usepackage{titlesec}             % compact section titles
+\usepackage{enumitem}              % compact lists
+\usepackage{xcolor}               % colors for code
+\usepackage{inconsolata}          % nice monospace font
+\usepackage{fvextra}              % improved verbatim
+\usepackage{listings}             % code listings
+\usepackage{amsmath, amssymb}     % math symbols
+\usepackage{microtype}            % better spacing
+
+% ===== MULTICOLUMN SETTINGS =====
+\setlength{\columnsep}{5mm}       % space between columns
+
+% ===== SECTION FORMATTING =====
+\titlespacing*{\section}{0pt}{0.3em}{0.3em}
+\titlespacing*{\subsection}{0pt}{0.2em}{0.2em}
+
+% ===== R CODE LISTINGS =====
+\lstloadlanguages{R} % use built-in R definition, avoids recursion
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\cheatsheetfontsize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{orange},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2
+}
+
+%============================
+\begin{document}
+\cheatsheetfontsize
+\begin{multicols*}{3} % Number of columns
+
+% ===== EXAMPLE 1 =====
+\begin{lstlisting}
+### Bootstrap
+n <- nrow(asphalt1)
+p <- length(coefficients(asphMod))
+nBoot <- 1000
+coefficientMatrix <- matrix(nrow=nBoot, ncol=p)
+for (iB in 1:nBoot) {
+  bootInd <- sample(1:n, n, replace=TRUE)
+  lmodB <- lm(LOGRUT ~ ., data = asphalt1[bootInd, ])
+  coefficientMatrix[iB, ] <- coef(lmodB)
+}
+sdCoeff <- apply(coefficientMatrix, 2, sd)
+round(sdCoeff*1000)/1000
+
+# Proper way to do bootstrap
+q95. <- quantile(res - th.n, pr = c(0.025, 0.975))
+ci95 <- th.n - q95.[2:1]
+### Bootstrap on custom statistic
+library(boot)
+
+theta_fun <- function(data, indices) {
+  d <- data[indices, ]
+  cor(d$x, d$y)
+}
+
+DATA_SIZE <- 5000
+data <- data.frame(x = rnorm(DATA_SIZE), y = rnorm(DATA_SIZE))
+
+boot_object <- boot(data, statistic = theta_fun, R = 10000)
+
+boot.ci(boot_object, type = "bca", conf = 0.95)
+
+## fit 1 (polynomial of degree 1)
+form1 <- as.formula("logupo3~.")
+fit1 <- lm(form1, data = d.ozone.e)
+## fits 2 to 5 (polynomial of degree d={2,..,5})
+form2 <- wrapFormula(form1, data = d.ozone.e, wrapString="poly(*,degree=2)")
+fit2 <- lm(form2, data = d.ozone.e)
+### Read table
+url <- "http...dat"
+d.asphalt <- read.table(url, header = TRUE)
+### Permutation Test for Global Null
+nPerm <- 1e6
+mse <- numeric(nPerm)
+for (p in 1:nPerm) {
+  permData <- asphalt1
+  permData$LOGRUT <- sample(asphalt1$LOGRUT)
+  lmPerm <- lm(LOGRUT ~ ., data = permData)
+  mse[p] <- mean((fitted(lmPerm) - permData$LOGRUT)^2)
+}
+mean(mse <= MSEfit)  # p-value
+### F-statistic, DF
+anova(my_model)
+### Adjusted R^2 (penalizes adding more predictors)
+summary(my_model)$r.squared
+summary(my_model)$adj.r.squared
+### ROC curve
+library(ROCR)
+data(mtcars)
+# We'll use mtcars but turn it into a "fast vs. slow" classification problem.
+mtcars$fast <- ifelse(mtcars$qsec < 18, 1, 0)
+fit <- glm(fast ~ hp + wt, data=mtcars, family = binomial)
+prob <- predict(fit, type = "response")
+pred <- prediction(prob, mtcars$fast)
+# tpr = true positive rate, fpr = false positive rate
+perf <- performance(pred, "tpr", "fpr")
+plot(perf, col="blue", lwd=2, main="ROC Curve")
+auc <- performance(pred, "auc")
+auc_value <- auc@y.values[[1]]
+print(auc_value)
+\end{lstlisting}
+\textit{\footnotesize
+Permutation test: shuffle $y$ many times, fit model each time, store MSE. 
+P-value $\approx$ fraction of permutations with lower MSE than observed. 
+If none, report $< 1/\text{nPerm}$.
+}
+
+\section*{Variance-bias tradeoff}
+When want to minimize the mean squared error \(\text{MSE}(x)\) at a point \(x\)\\\\ $
+\text{MSE}(x) = \mathbb{E}\left[ (f(x) - \hat{f}(x))^2 \right] = \left( \mathbb{E}[\hat{f}(x)] - f(x) \right)^2 + \text{Var}(\hat{f}(x))$
+\begin{lstlisting}
+### Additive models -> gam in R
+library(mgcv)
+data(ozone, package = "gss")
+chgNames <- function(dfr, oldNms, newNms) {
+    colnames(dfr)[colnames(dfr) %in% oldNms] <- newNms
+    dfr
+}
+d.ozone <- chgNames(
+    ozone,
+    oldNms = c("upo3", "wdsp", "hmdt", "sbtp"),
+    newNms = c("O3", "wind", "humidity", "temp")
+)
+pairs(d.ozone, pch = ".", gap = 0)
+
+fitA <- gam(O3 ~ s(vdht)+s(wind)+s(humidity)+s(temp)+s(ibht)+s(dgpg)+s(ibtp)+s(vsty)+s(day),data=d.ozone)
+summary(fitA)
+### MARS in R
+require("earth")
+Mfit <- earth(Volume ~ ., data = trees)
+summary(Mfit)
+predict(Mfit, data.frame(Girth= 5:15, Height= seq(60,80, length=11)))
+### Sequence
+xvals <- seq(0, 1, by = 0.01)
+yvals <- m_fct(xvals) + 0.1 * rnorm(length(xvals))
+### Renaming Columns
+colnames(ziptrain) <- c('Y', paste('X', rep(1:256), sep=''))
+
+\end{lstlisting}
+\textit{\footnotesize
+\texttt{paste('X', rep(1:256), sep='')} → "X1", "X2", ..., "X256" \\
+\texttt{rep(1:256)} just makes 1,2,...,256 (could use \texttt{1:256}). \\
+\texttt{sep=''} glues "X" to number w/o spaces. \\
+\texttt{c('Y', paste(...))} adds "Y" at front. \\
+Assigns these names to all columns of \texttt{ziptrain}.
+}
+\begin{lstlisting}
+#### logistic regression
+library(glmnet)
+
+# Numeric to categorical variable
+ziptrain[,1] <- as.factor(ziptrain[,1])
+
+# lasso
+# ziptrain[,-1] means: "all rows, but exclude the first column".
+log1 <- cv.glmnet(x=as.matrix(ziptrain[,-1]),y=ziptrain[,1],family='multinomial',alpha=1,nfolds=5)
+
+# use the single regularization parameter chosen as the "1-standard-error" rule :  more regularized/simpler model than lambda.min.
+predt <- predict(log1,lambda=log1$lambda.1se,newx=as.matrix(ziptest[,-1]),type='class') # type='class' asks for predicted class labels (one label per row). Because a single lambda is specified, this returns a vector of predicted classes
+
+# coerces that logical vector to numeric (T:1, F:0)
+mean(!(predict(log1,lambda=log1$lambda.1se,newx=as.matrix(ziptrain[,-1]),type='class')==ziptrain$Y)) #train error
+mean(!(predt==ziptest$Y)) #test error
+
+# ridge (only diff with lasso is alpha = 0)
+log2 <- cv.glmnet(x=as.matrix(ziptrain[,-1]),y=ziptrain[,1],family='multinomial',alpha=0,nfolds=5)
+#ridge: prediction and errors same code as for lasso
+
+# no regularization
+library(nnet)
+
+# MaxNWts = maximum allowable number of weights in the neural network model.
+# nnet::multinom() fits multinomial logistic regression using a single-layer neural net under the hood.
+log0 <- multinom(Y~.,data=ziptrain,MaxNWts = 3000)
+predt <- as.numeric(predict(log0,newdata=ziptest[,-1],type='class'))-1
+mean(!((as.numeric(predict(log0,newdata=ziptrain[,-1],type='class'))-1)==ziptrain$Y)) #train error
+mean(!(predt==ziptest$Y)) #test error
+
+###  Nadaraya-Watson
+simul <- function(x, m, nrep=1000) {
+    set.seed(79)
+    n <- length(x)
+    ## Prepare hat matrices
+    Snw <- Slp <- Sss <- matrix(0, nrow = n, ncol = n)
+    ## Calculate the hat matrix for Nadaraya-Watson, it only depends on x.
+    ## The j-th column is given by S_j = Snw[,j]
+    In <- diag(n)
+    for(j in 1:n) {
+        Snw[,j] <- ksmooth(x, In[,j], kernel = "normal", bandwidth = 0.2,
+        x.points = x)$y
+    }
+## Give out the degrees of freedom for Nadaraya-Watson estimator
+df.NW <- sum(diag(Snw))
+cat("Degrees of freedom for Nadaraya-Watson:",format(df.NW),"\n")
+## Getting the span parameter for loess and
+## spar parameter for smooth.spline such that the
+## degrees of freedom are (approximately) the same
+## with the ones for Nadaraya-Watson estimator
+dflp <- function(span, val) {
+    for(j in 1:n)
+        Slp[,j] <- loess(In[,j] ~ x, span = span)$fitted
+    
+    sum(diag(Slp)) - val
+}
+## What span value leads to the desired df-value?
+span <- uniroot(dflp, c(0.2, 0.5), val = df.NW)$root
+## Give out the span value for Local Polynomial regression estimator
+## with same degrees of freedom
+cat("Span value for Local Polynomial:",format(span),"\n")
+## Compute smoothing matrix using loess, respectively smooth.spline
+for(j in 1:n) {
+Slp[,j] <- predict(loess(In[,j] ~ x, span = span), newdata = x)
+Sss[,j] <- predict(smooth.spline(x, In[,j], df = df.NW), x = x)$y
+}
+## Get the spar value
+spar <- smooth.spline(x, In[,1], df = df.NW)$spar
+## Give out the span value for Smoothing Splines regression
+## estimator with same degrees of freedom
+cat("Spar value for Smoothing Splines:",format(spar),"\n")
+## Save the results of each kernel estimator in a matrix
+## rows are x-positions, columns are simulation runs
+estnw <- estlp <- estss <- matrix(0, nrow = n, ncol = nrep)
+senw <- selp <- sess <- matrix(0, nrow = n, ncol = nrep)
+for(i in 1:nrep) {
+## Simulate y-values
+y <- m(x) + rnorm(length(x))
+## Get estimates for the mean function
+estnw[,i] <- ksmooth(x, y, kernel = "normal", bandwidth = 0.2, x.points = x)$y
+estlp[,i] <- predict(loess(y ~ x, span = span), newdata = x)
+estss[,i] <- predict(smooth.spline(x, y, spar = spar), x = x)$y
+## Compute the estimated variance of the error
+sigmanw <- sum((y - estnw[,i])^2) / (length(y) - sum(diag(Snw)))
+sigmalp <- sum((y - estlp[,i])^2) / (length(y) - sum(diag(Slp)))
+sigmass <- sum((y - estss[,i])^2) / (length(y) - sum(diag(Sss)))
+## Compute the standard error
+senw[,i] <- sqrt(sigmanw * diag(Snw %*% t(Snw)))
+selp[,i] <- sqrt(sigmalp * diag(Slp %*% t(Slp)))
+sess[,i] <- sqrt(sigmass * diag(Sss %*% t(Sss)))
+}
+## Return the estimated means and standard errors in a list
+list(estnw=estnw, estlp=estlp, estss=estss, senw=senw, selp=selp, sess=sess)
+}
+### SVM
+# svm(Species ~ ., data = train_data, cost = 1)
+# the solver internally introduces slack variables 
+# The parameter cost is the C in the optimization problem:
+# High cost : fewer margin violations (less slack allowed), tighter margin, risk of overfitting.
+# Low cost : more slack allowed, softer margin, better generalization.
+# Get svm type, kernel, cost, number of support vectors etc : summary(svm_model)
+# Split test train
+sample_index <- sample(1:nrow(iris), 0.7*nrow(iris))
+train_data <- iris[sample_index, ]
+test_data <- iris[-sample_index, ]
+# Linear kernel
+svm_linear <- svm(Species ~ ., data = train_data, kernel = "linear")
+# Polynomial kernel
+svm_poly <- svm(Species ~ ., data = train_data, kernel = "polynomial", degree = 3)
+# Sigmoid kernel
+svm_sigmoid <- svm(Species ~ ., data = train_data, kernel = "sigmoid")
+summary(svm_model)
+predictions <- predict(svm_model, test_data)
+table(Predicted = predictions, Actual = test_data$Species)
+
+accuracy <- mean(predictions == test_data$Species)
+
+### SVM
+set.seed(1)
+x1 <- matrix(rnorm(10*2), ncol=2)
+x2 <- matrix(rnorm(10*2, mean=2), ncol=2)
+X <- rbind(x1, x2)
+y <- factor(c(rep(-1,10), rep(1,10)))
+
+library(e1071)
+
+fitted_svm <- svm(X,y, kernel="linear", cost=1, scale = FALSE)
+### Manual cross validation
+for (j in 1:10){ #10 fold CV
+        ii <- c( (10*(j-1)+1):(10*j) )
+        Xcv <- X[-ii,]
+        Y2cv <- Y2[-ii]
+        acv <- fitKLR(Y2cv,Xcv,lambda0,nu0)
+        
+        ## prediction at other x
+        Kcv <- exp(-nu0*as.matrix(D[ii,-c(ii)])^2)
+        predcv <- as.numeric((acv[1]+Kcv%*%acv[-1]) > 0)*2-1
+        errj[j] <- mean(!(predcv==Y2[ii]))
+    }
+### Take subset to remove outliers
+
+d.ozone.e <- subset(d.ozone, wdsp <= 15)
+## other way to delete an outlier
+out <- which.max(d.ozone[,"wdsp"])
+d.ozone.e <- d.ozone[-out,]
+### Mallows Cp function
+Cp <- function(object,sigma){
+  res <- residuals(object)
+  n <- length(res)
+  p <- n - object$df.residual
+  SSE <- sum(res^2)
+  SSE / sigma^2 - n + 2 * p
+}
+# choose sigma
+sigma <- summary(fit5)$sigma
+# Calculate and print Mallows's Cp statistics for all 5 models
+c(fit1 = Cp(fit1,sigma), fit2 = Cp(fit2,sigma), fit3 = Cp(fit3,sigma), fit4 = Cp(fit4,sigma), fit5 = Cp(fit5,sigma), g1 = Cp(g1,sigma))
+
+# Optimal CP, CV error and apply
+
+misclass.sample <- function(data, ind.training, ind.test)
+{
+  tree <- rpart(Class ~ ., data = data[ind.training, ], control = rpart.control(cp = 0.0, minsplit = 30))
+  
+  ## choose optimal cp according to 1-std-error rule:
+  cp <- tree$cptable
+  min.ind <- which.min(cp[,"xerror"])
+  min.lim <- cp[min.ind, "xerror"] + cp[min.ind, "xstd"]
+  cp.opt <-  cp[ cp[,"xerror"] < min.lim, "CP"][1]
+  
+  prnd.tree <- prune.rpart(tree, cp = cp.opt)
+  ## return  test misclassification rate:
+  mean(data$Class[ind.test] != predict(prnd.tree, newdata = data[ind.test, ], type = "class"))
+}
+
+
+## CV-error:
+
+cv.err <- function(data, ind){
+  misclass.sample(data, -ind, ind)
+}
+n <- nrow(d.vehicle)
+cv.samples <- sapply(1:n, cv.err, data = d.vehicle)
+
+## protip
+In R, replicate(n, expr) simply means: run expr n times and collect the results.
+# Bootstrapping
+B <- 1000
+boot.err <- function(dat, ind) misclass.sample(dat, ind, 1:n)
+
+boot.samples <- replicate(B, boot.err(d.vehicle, sample(1:n, replace = TRUE)))
+
+if(file.exists(cFile <- "boot-samp.rds")) { boot.samples <- readRDS(cFile)
+} else { # compute and save them
+
+saveRDS(boot.samples, cFile)
+}
+
+(errboot <- mean(boot.samples))
+# Random Forest
+require(randomForest)
+d.vehicle$Class <- as.factor(d.vehicle$Class)
+fitted_rf <- randomForest(Class ~ . , data = d.vehicle)
+plot(fitted_rf)
+## Protip : get the number of predictors
+p <- ncol(d.vehicle) -1
+
+### LDA
+## Use function lda() to fit data
+class_lda <- lda(x = Iris[, c("Petal.Length", "Petal.Width")], grouping = Iris[, "Species"])
+## Use function predplot to plot the boundaries
+predplot(class_lda, Iris, main = "Classification with LDA", method ="LDA")
+## Change reference
+Iris1$Species <- relevel(Iris1$Species, ref = "not")
+
+\end{lstlisting}
+\end{multicols*}
+\end{document}
