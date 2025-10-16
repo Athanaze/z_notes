@@ -1,3 +1,15 @@
+# Deep learning
+
+## Strong convexity
+
+source : https://xingyuzhou.org/blog/notes/strong-convexity
+
+<img width="603" height="139" alt="2025-10-16-111857_603x139_scrot" src="https://github.com/user-attachments/assets/5753f7e2-3507-4a40-80c6-7c3c09c7c84d" />
+
+- ⚠️ Strong convexity doesn't require the function to be differentiable, and the gradient is replaced by the sub-gradient when the function is non-smooth.
+
+- Intuition : strong convexity -> function grows at least quadratically
+- Idea for the proofs and properties : we can relate a strongly-convex function $f(x)$ to another convex function $g(x)$ so we can apply the conditions for a convex function
 # Model bias of parametric methods
 
 "Model bias" will be large when the relation between Y and X is very non linear
