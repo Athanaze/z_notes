@@ -1,5 +1,31 @@
 # Compsec
 
+## Instruction Pointer Register : contains the address of the next instruction
+
+## EIP
+
+- Extented Instruction Pointer : 32bit CPU
+
+## RIP
+
+- Register Instruction Pointer : 64bit CPU
+
+During basic program execution, the CPU:
+
+1. Looks at the address stored in EIP/RIP.
+
+2. Fetches the instruction located at that memory address.
+
+3. Executes it.
+
+4. Automatically updates EIP/RIP to point to the next instruction.
+
+## Use after free vulnerability
+
+- Attacker can influence what gets placed in the freed region, allows for leak of data etc...
+
+
+
 ## Double free attack
 
 - The programmer of the attacked program made a mistake by freeing two times the same heap allocation, this leads to undefined behavior -> exploitable
