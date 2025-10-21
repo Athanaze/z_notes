@@ -1,5 +1,25 @@
 # Compsec
 
+# BBL
+
+Basic block:
+- Single entry : Each basic block has one entry point: **execution always enters the block at the first instruction**
+- Single exit : only at the end of the block, where control is transfered to another block
+- NO INTERNAL BRANCHES and no instructions from outside can jump into the middle of the block -> execution is a straight line
+
+# Stack frame creation
+
+Function prologue:
+
+- Save previous stack frame
+- Create new stack frame
+
+Function epilogue:
+
+- Remove stack frame
+- Restore previous stack frame
+
+
 # Call instruction
 
 The **CALL instruction** automatically pushes the return address on the stack, while the return address simply points to the instruction after the call
