@@ -1,5 +1,15 @@
 # Compsec
 
+```gets``` is very bad because it allows unlimited input into limited size buffer 🤮
+
+Return to libc attack:
+
+- libc is linked to almost all programs
+- offers system() which allows executing a shell with privilege from the program
+
+  "Easy" to do for the attacker because he is just doing **code reuse**
+
+
 # BBL
 
 Basic block:
