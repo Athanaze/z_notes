@@ -1,5 +1,13 @@
 # Compsec
 
+# EBP
+
+- Extended Base Pointer : used as reference point for accessing func. arguments and local variables within the stack frame.
+
+# ESP
+
+- Extended Stack Pointer : always points to the top of the stack
+
 ## Instruction Pointer Register : contains the address of the next instruction
 
 ## EIP
