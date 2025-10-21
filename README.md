@@ -1,5 +1,12 @@
 # Compsec
 
+# Stack canary
+
+- Protect important stack values
+- *During function prologue* : we write a random value on the stack, and we make a copy "far away"
+- *During function epilogue* : we check the random value against the copy -> if they differ STOP EXECUTION
+- **Creates overhead**
+
 ```gets``` is very bad because it allows unlimited input into limited size buffer 🤮
 
 Return to libc attack:
