@@ -1,5 +1,15 @@
 # Compsec
 
+# ROP : Return oriented programming
+
+vs
+
+# CFI : control flow integrity
+
+-> Restricts indirect control-flow targets to a pre-defined control-flow graph
+-> Requires compiler support
+-> Requires to pre-determine and map out the legitimate paths of program execution. This is achieved by constructing a Control-Flow Graph (CFG) during compilation or analysis, which defines all valid targets for indirect control-flow transfers—such as function calls, returns, jumps, or branches—that the program is expected to follow under normal, non-malicious conditions.
+
 # Stack canary
 
 - Protect important stack values
