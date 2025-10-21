@@ -1,3 +1,17 @@
+# Compsec
+
+## Double free attack
+
+- The programmer of the attacked program made a mistake by freeing two times the same heap allocation, this leads to undefined behavior -> exploitable
+
+## ASLR : Address Space Layout Randomization
+
+- Prevents attacker from predicting where stuff will be in memory
+
+## DEP : Data Execution Prevention
+
+. We mark zones in the memory as data-only, so that they cannot be executed as code by the attacker
+
 # Deep learning
 
 ## Strong convexity
