@@ -1,5 +1,9 @@
 # Compsec
 
+# Call instruction
+
+The **CALL instruction** automatically pushes the return address on the stack, while the return address simply points to the instruction after the call
+
 # EBP
 
 - Extended Base Pointer : used as reference point for accessing func. arguments and local variables within the stack frame.
