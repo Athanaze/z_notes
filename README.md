@@ -28,6 +28,16 @@ Batch normalization in practice:
 
 <img width="1000" height="576" alt="image" src="https://github.com/user-attachments/assets/82e12163-5556-4e43-8b32-b7e6a173e194" />
 
+---
+
+<img width="1077" height="543" alt="image" src="https://github.com/user-attachments/assets/7f90ca91-4e56-4650-bc81-189194ed8927" />
+
+<img width="813" height="584" alt="image" src="https://github.com/user-attachments/assets/97c563dd-5180-4d9a-bafb-553ed193a273" />
+
+# VLB
+
+<img width="1243" height="615" alt="image" src="https://github.com/user-attachments/assets/2204f8eb-8473-4a76-beaf-b1625b19064a" />
+
 
 # Compsec
 
