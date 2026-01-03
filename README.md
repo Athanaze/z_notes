@@ -1,3 +1,34 @@
+# Normalization
+
+Measure dynamic range :
+
+- Batch normalization is used with many data points -> mini batch
+
+<img width="952" height="697" alt="image" src="https://github.com/user-attachments/assets/75fc08d2-310b-4431-9b1a-353dd4ef34db" />
+
+<img width="780" height="426" alt="image" src="https://github.com/user-attachments/assets/14e357ff-45b4-4f6b-a932-b0ec1caf2aba" />
+
+Batch normalization in practice:
+- Increase LR
+- Remove dropout
+- Decrease weight regularization
+- Accelerate LR decay
+
+- Layer normalization is used with units in same layer
+<img width="866" height="568" alt="image" src="https://github.com/user-attachments/assets/02a8288a-3d6c-4a61-aaa2-f15eaa2352f1" />
+
+<img width="866" height="568" alt="image" src="https://github.com/user-attachments/assets/47219a9c-3d6d-44c1-b0f5-7ebc5179d9d4" />
+
+
+# Loss for distribution overlap
+
+<img width="965" height="600" alt="image" src="https://github.com/user-attachments/assets/dc4ddd53-8a4e-42e3-ac14-52227c39130f" />
+
+<img width="991" height="587" alt="image" src="https://github.com/user-attachments/assets/81acea86-c62b-4487-a3a4-ca2425e3532d" />
+
+<img width="1000" height="576" alt="image" src="https://github.com/user-attachments/assets/82e12163-5556-4e43-8b32-b7e6a173e194" />
+
+
 # Compsec
 
 <table border="0">
