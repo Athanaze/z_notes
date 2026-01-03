@@ -1,3 +1,6 @@
+<img width="1255" height="432" alt="image" src="https://github.com/user-attachments/assets/3e0a7474-a6ee-4608-aeb4-6f841788078b" />
+
+
 # Normalization
 
 Measure dynamic range :
