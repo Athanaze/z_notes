@@ -38,6 +38,7 @@ Batch normalization in practice:
 
 <img width="1243" height="615" alt="image" src="https://github.com/user-attachments/assets/2204f8eb-8473-4a76-beaf-b1625b19064a" />
 
+<img width="962" height="501" alt="image" src="https://github.com/user-attachments/assets/99d18d39-b216-43c7-af20-2f6e692b7cb3" />
 
 # Compsec
 
