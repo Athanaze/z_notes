@@ -1,3 +1,8 @@
+# Cheatsheet
+
+<img width="691" height="259" alt="image" src="https://github.com/user-attachments/assets/22bad06c-0720-47cd-9b07-5464f7381d10" />
+
+
 <img width="1255" height="432" alt="image" src="https://github.com/user-attachments/assets/3e0a7474-a6ee-4608-aeb4-6f841788078b" />
 
 
