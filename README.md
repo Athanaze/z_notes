@@ -1,3 +1,8 @@
+# codex
+
+```
+codex --yolo -c 'sandbox_workspace_write.network_access=true'
+
 # Cheatsheet
 
 <img width="691" height="259" alt="image" src="https://github.com/user-attachments/assets/22bad06c-0720-47cd-9b07-5464f7381d10" />
