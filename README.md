@@ -1,5 +1,7 @@
 # codex
 
+ codex --yolo -c 'sandbox_workspace_write.network_access=true' --search --resume
+
 ```
 codex --yolo -c 'sandbox_workspace_write.network_access=true'
 
