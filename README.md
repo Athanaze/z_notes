@@ -1,3 +1,6 @@
+
+<img width="744" height="672" alt="2026-01-07-120600_744x672_scrot" src="https://github.com/user-attachments/assets/9f0f5cb1-059a-472e-b63c-9e2b57f164b3" />
+
 # codex
 ```
 codex --search --yolo -c 'sandbox_workspace_write.network_access=true' resume --last'
