@@ -1,3 +1,5 @@
+For my semester project I built a system to answer legal questions using laws and court decisions from Switzerland, as well as EU regulations. Most of the time was spent building the graph from the raw dataset, so now I would be interested in exploring less naive ways of navigating the knowledge graph to better answer questions. I also fine-tuned an embedding model specifically for the legal documents used in the graph, and I would like to experiment with a reranking model and other techniques.
+
 <img width="1542" height="357" alt="2026-01-07-125807_1920x1080_scrot" src="https://github.com/user-attachments/assets/7b2f7669-ff66-4616-b43b-b81397150976" />
 
 <img width="744" height="672" alt="2026-01-07-120600_744x672_scrot" src="https://github.com/user-attachments/assets/9f0f5cb1-059a-472e-b63c-9e2b57f164b3" />
